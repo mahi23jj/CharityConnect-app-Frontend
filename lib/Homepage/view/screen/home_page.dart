@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel/base_Data/customize.dart';
-import 'package:travel/story_page.dart';
+import 'package:travel/Homepage/view/widgets/story_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

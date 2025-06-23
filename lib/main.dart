@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:travel/Navigation/router/approuter.dart';
 import 'package:travel/autentication/login.dart';
 import 'package:travel/autentication/signup.dart';
-import 'package:travel/home_page.dart';
+import 'package:travel/Homepage/view/screen/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig:approuter,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: sign()
+      // home: sign()
     );
   }
 }
