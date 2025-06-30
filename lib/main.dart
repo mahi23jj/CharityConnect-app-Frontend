@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/Homepage/viewmode/Bloc/homebloc.dart';
+import 'package:travel/Homepage/viewmode/Event/homeevent.dart';
+import 'package:travel/Homepage/viewmode/repository/home_repository.dart';
 import 'package:travel/Navigation/router/approuter.dart';
 import 'package:travel/autentication/login.dart';
 import 'package:travel/autentication/signup.dart';
@@ -16,18 +19,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider (
+    return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => Profileprovider()),
-        // BlocProvider(create: (context) => signupBloc()),
+        BlocProvider(
+          create: (context) =>
+              CommentProvider(content_repository())
+                ..add(Loadcontent()),
+        ),
       ],
-      
       child: MaterialApp.router(
-        routerConfig:approuter,
+        routerConfig: approuter,
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
@@ -36,7 +40,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-
