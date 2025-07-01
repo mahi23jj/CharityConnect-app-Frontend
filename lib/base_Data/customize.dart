@@ -13,5 +13,7 @@ class Customize {
   Color background = Color.fromARGB(137, 224, 224, 224);
   double minfont= 14;
   double midfont= 20;
-  double maxfont= 24;  
+  double maxfont= 24;
+
+  // textStyle(Color black, int i, FontWeight bold, double d) {}  
 }

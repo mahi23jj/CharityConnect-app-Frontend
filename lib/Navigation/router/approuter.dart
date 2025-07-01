@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:travel/Event/view/screen/upcoming_event.dart';
 import 'package:travel/Navigation/bottomnavigation/bottom_navigation.dart';
 
 import '../../Homepage/view/screen/home_page.dart';
@@ -19,7 +20,7 @@ final approuter = GoRouter(initialLocation: '/home', routes: [
         StatefulShellBranch(routes: [
           GoRoute(
             path: '/search',
-            builder: (context, state) => const Search(),
+            builder: (context, state) => const UpcomingEvent(),
           )
         ]),
         StatefulShellBranch(routes: [
