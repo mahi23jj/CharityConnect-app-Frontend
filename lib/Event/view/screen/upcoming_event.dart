@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel/Event/Model/Filter_model.dart';
+import 'package:travel/Event/view/screen/event_detail.dart';
+import 'package:travel/Event/view/widget/Filterwidegt.dart';
 import 'package:travel/Event/view/widget/eventbar.dart';
 import 'package:travel/Event/view/widget/filter_bar.dart';
 import 'package:travel/base_Data/customize.dart';
@@ -29,6 +31,7 @@ class _UpcomingEventState extends State<UpcomingEvent> {
             padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Top Close Button
                 Align(
@@ -40,9 +43,14 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                 ),
                 const SizedBox(height: 10),
 
-                Text(
-                  'Filter by',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Filter',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
 
                 const SizedBox(height: 10),
@@ -51,31 +59,41 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                   'Location',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                Row(
-                  children: [
-                    // expnaded not to cause overflow
-                    Expanded(
-                      child: FilterWidget(
-                          allConditions: filter.locations.keys.toList(),
-                          selectedCondition: 'Location',
-                          selectedConditions: filter.location),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: FilterWidget(
-                          allConditions: filter.location.isNotEmpty
-                              ? filter.locations[filter.location.last] ?? []
-                              : [],
-                          selectedCondition: 'subLocation',
-                          selectedConditions: filter.subLocation),
-                    ),
-                    //  FilterWidget(allConditions: filter.location.isNotEmpty? filter.locations[filter.location.last]:[], selectedCondition:'subLocation', selectedConditions: filter.subLocation),
-                  ],
-                ),
 
-                const SizedBox(height: 20),
+                LocationWidget(
+                            allConditions: filter.locations.keys.toList(),
+                            selectedCondition: 'Location',
+                            selectedConditions: filter.location),
+                // Row(
+                //   children: [
+                //     // expnaded not to cause overflow
+                //     Expanded(
+                //       // width: 100,
+                //       child: 
+                //     ),
+                //     // Expanded(
+                //     //   child: 
+                //     // ),
+                //     const SizedBox(
+                //       width: 10,
+                //     ),
+                //     Expanded(
+                //       // width: 100,
+                //       child: FilterWidget(
+                //             allConditions: filter.location.isNotEmpty
+                //                 ? filter.locations[filter.location.last] ?? []
+                //                 : [],
+                //             selectedCondition: 'subLocation',
+                //             selectedConditions: filter.subLocation),
+                //     ),
+                //     // Expanded(
+                //     //   child: 
+                //     // ),
+                //     //  FilterWidget(allConditions: filter.location.isNotEmpty? filter.locations[filter.location.last]:[], selectedCondition:'subLocation', selectedConditions: filter.subLocation),
+                //   ],
+                // ),
+
+                // const SizedBox(height: 20),
                 Text(
                   'Support For',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -96,22 +114,44 @@ class _UpcomingEventState extends State<UpcomingEvent> {
 
                 // Placeholder image
 
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle send action here
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                const SizedBox(height: 25),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle send action here
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child:
+                          const Text("Cancel", style: TextStyle(color: Colors.white)),
                     ),
-                  ),
-                  child:
-                      const Text("Send", style: TextStyle(color: Colors.white)),
+                    SizedBox(width: 15,),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle send action here
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: app.basecolor,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child:
+                          const Text("Apply", style: TextStyle(color: Colors.white)),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -230,11 +270,14 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                     4,
                     (index) => Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Eventbar(
-                              image: 'asset/images/project.jpg',
-                              eventname: 'Javascript',
-                              eventdate: '2022-12-12',
-                              eventlocation: 'Jakarta'),
+                          child: GestureDetector(
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => EventDetail())),
+                            child: Eventbar(
+                                image: 'asset/images/project.jpg',
+                                eventname: 'Javascript',
+                                eventdate: '2022-12-12',
+                                eventlocation: 'Jakarta'),
+                          ),
                         )),
               ),
             ],

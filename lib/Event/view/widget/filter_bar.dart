@@ -1,32 +1,22 @@
 import 'package:flutter/material.dart';
 
-class FilterWidget extends StatefulWidget {
-  List<String> selectedConditions;
-  List<String> allConditions;
-  String selectedCondition;
+class LocationWidget extends StatefulWidget {
+  final List<String> selectedConditions;
+  final List<String> allConditions;
+  final String selectedCondition;
 
-  FilterWidget({super.key,required this.allConditions, required this.selectedCondition , required this.selectedConditions});
+  const LocationWidget({
+    Key? key,
+    required this.allConditions,
+    required this.selectedCondition,
+    required this.selectedConditions,
+  }) : super(key: key);
 
- 
   @override
-  _FilterWidgetState createState() => _FilterWidgetState();
+  _LocationWidgetState createState() => _LocationWidgetState();
 }
 
-class _FilterWidgetState extends State<FilterWidget> {
-  // final List<String> allConditions = [
-  //   "Autism",
-  //   "FND",
-  //   "Anxiety",
-  //   "Depression",
-  //   "Parkinson’s",
-  //   "PTSD",
-  //   "Epilepsy",
-  //   "ADHD",
-  //   "Down Syndrome",
-  //   "Cancer"
-  // ];
-
-
+class _LocationWidgetState extends State<LocationWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,8 +42,12 @@ class _FilterWidgetState extends State<FilterWidget> {
               controller: controller,
               focusNode: focusNode,
               onEditingComplete: onEditingComplete,
+              enabled: widget.allConditions.isNotEmpty,
               decoration: InputDecoration(
-                hintText: "Search ${widget.selectedCondition} (e.g: ${widget.allConditions.first})",
+                hintText: "Search ${widget.selectedCondition}" +
+                    (widget.allConditions.isNotEmpty
+                        ? " (e.g: ${widget.allConditions.first})"
+                        : ""),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -61,7 +55,7 @@ class _FilterWidgetState extends State<FilterWidget> {
             );
           },
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         Wrap(
           spacing: 8,
           runSpacing: 8,
