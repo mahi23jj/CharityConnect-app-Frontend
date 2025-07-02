@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel/Campain/view/screen/Donationdetail.dart';
 
 class CampaignListPage extends StatelessWidget {
   final List<Map<String, dynamic>> categories = [
@@ -10,7 +11,7 @@ class CampaignListPage extends StatelessWidget {
 
   final List<Map<String, dynamic>> campaigns = [
     {
-      'image': 'https://via.placeholder.com/150',
+      'image': 'asset/images/project.jpg',
       'title': 'Urgent! Help the construction mosque',
       'author': 'Adaa Bisaaa',
       'amount': '\$23,423',
@@ -18,15 +19,7 @@ class CampaignListPage extends StatelessWidget {
       'progress': 0.6,
     },
     {
-      'image': 'https://via.placeholder.com/150',
-      'title': 'Water Waqf for poor Orphans',
-      'author': 'Yagilu yayasan',
-      'amount': '\$12,000',
-      'daysLeft': '2 days left',
-      'progress': 0.25,
-    },
-    {
-      'image': 'https://via.placeholder.com/150',
+      'image': 'asset/images/project.jpg',
       'title': 'Elderly strokes work roughly paid 20 thousand',
       'author': 'Prikilow',
       'amount': '\$40,200',
@@ -34,7 +27,7 @@ class CampaignListPage extends StatelessWidget {
       'progress': 0.4,
     },
     {
-      'image': 'https://via.placeholder.com/150',
+      'image': 'asset/images/project.jpg',
       'title': "Help people who can't continue their education",
       'author': 'Bissaa kuy',
       'amount': '\$5,500',
@@ -93,34 +86,36 @@ class CampaignListPage extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            // 📦 Campaign List
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(16),
-                itemCount: campaigns.length,
-                itemBuilder: (context, index) {
-                  final item = campaigns[index];
-                  return GestureDetector(
-                    onTap: () => Navigator.pushNamed(context,'/Details',arguments: item),
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: Row(
-                        children: [
-                          // 📷 Image
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              item['image'],
-                              height: 80,
-                              width: 80,
-                              fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: List.generate(
+                  campaigns.length,
+                  (index) {
+                    final item = campaigns[index];
+                    return GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Donationdetail())),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Row(
+                          children: [
+                            // 📷 Image
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.asset(
+                                item['image'],
+                                height: 80,
+                                width: 80,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 12),
-                    
-                          // 📄 Details
-                          Expanded(
-                            child: Column(
+                            const SizedBox(width: 12),
+
+                            // 📄 Details
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(item['title'],
@@ -130,27 +125,33 @@ class CampaignListPage extends StatelessWidget {
                                 const SizedBox(height: 4),
                                 Text(item['author'],
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey.shade600)),
+                                        fontSize: 12, color: Colors.black)),
                                 const SizedBox(height: 8),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    LinearProgressIndicator(
-                                      value: item[
-                                          'progress'], // must be between 0.0 - 1.0
-                                      minHeight: 6,
-                                      backgroundColor: Colors.grey.shade300,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors.green),
+                                    SizedBox(
+                                      width: 100,
+                                      child: LinearProgressIndicator(
+                                        value: item[
+                                            'progress'], // must be between 0.0 - 1.0
+                                        minHeight: 6,
+                                        backgroundColor: Colors.grey.shade300,
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.green),
+                                      ),
                                     ),
-                                    const SizedBox(height: 4),
+                                    const SizedBox(width: 8),
                                     Text(
-                                        '${(item['progress'] * 100).toStringAsFixed(0)}% reached',
-                                        style: TextStyle(
-                                            fontSize: 12, color: Colors.black)),
+                                      '${(item['progress'] * 100).toStringAsFixed(0)}% reached',
+                                      style: const TextStyle(
+                                          fontSize: 12, color: Colors.black),
+                                    ),
                                   ],
                                 ),
+
                                 const SizedBox(height: 8),
                                 // 💰 Amount and Time
                                 Row(
@@ -163,18 +164,17 @@ class CampaignListPage extends StatelessWidget {
                                             fontWeight: FontWeight.bold)),
                                     Text(item['daysLeft'],
                                         style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey.shade600)),
+                                            fontSize: 12, color: Colors.black)),
                                   ],
                                 )
                               ],
                             ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             )
           ],

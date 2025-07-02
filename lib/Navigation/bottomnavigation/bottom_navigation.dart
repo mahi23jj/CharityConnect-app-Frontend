@@ -23,6 +23,7 @@ class Bottomnavigator extends StatelessWidget {
         items: const [
           BottomNavigationBarItem( label: 'Home',icon: Icon(Icons.home)),
           BottomNavigationBarItem( label: 'Search',icon: Icon(Icons.search)),
+          BottomNavigationBarItem( label: 'Donation',icon: Icon(Icons.monetization_on)),
           BottomNavigationBarItem( label: 'Profile',icon: Icon(Icons.person)), 
         ]
         )

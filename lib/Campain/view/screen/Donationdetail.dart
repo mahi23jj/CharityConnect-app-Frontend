@@ -30,8 +30,8 @@ class _DonationdetailState extends State<Donationdetail> {
 
           // Foreground content
           DraggableScrollableSheet(
-            initialChildSize: 0.75,
-            minChildSize: 0.75,
+            initialChildSize: 0.6,
+            minChildSize: 0.6,
             maxChildSize: 0.95,
             builder: (_, controller) {
               return Container(
@@ -48,6 +48,7 @@ class _DonationdetailState extends State<Donationdetail> {
                   ],
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Help Family Village ',
@@ -59,14 +60,14 @@ class _DonationdetailState extends State<Donationdetail> {
                         Text(
                           '125,000',
                           style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                             
                               color: app.secondary),
                         ),
                         Text(
                           ' fund collected from 500,000',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 16),
                         ),
                       ],
                     ),
@@ -75,11 +76,12 @@ class _DonationdetailState extends State<Donationdetail> {
                     ),
                     Row(children: [
                       CircleAvatar(
+                        
                         child: Image.asset(
                           'assets/images/1.png',
                           fit: BoxFit.cover,
                         ),
-                        radius: 20,
+                        radius: 15,
                       ),
                       SizedBox(
                         width: 5,
@@ -133,22 +135,25 @@ class _DonationdetailState extends State<Donationdetail> {
                     Divider(
                       color: app.background,
                     ),
-                    Row(
-                      children: List.generate(
-                        4,
-                        (index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Container(
-                              height: 200,
-                              width: 200,
-                              child: ClipRRect(
-                                borderRadius: BorderRadiusGeometry.circular(10),
-                                child: Image.asset('asset/images/project.jpg'),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          4,
+                          (index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Container(
+                                height: 100,
+                                width: 100,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadiusGeometry.circular(20),
+                                  child: Image.asset('asset/images/project.jpg'),
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
                     ),
                     Text(
@@ -198,7 +203,18 @@ class _DonationdetailState extends State<Donationdetail> {
           ),
 
           // Title & top overlay
-         
+          Positioned(
+            top: 50,
+            left: 20,
+            right: 20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Icon(Icons.arrow_back, color: Colors.white),
+                Icon(Icons.share, color: Colors.white),
+              ],
+            ),
+          ),
         ],
       ),
     );
