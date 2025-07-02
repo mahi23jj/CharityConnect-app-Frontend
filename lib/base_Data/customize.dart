@@ -9,6 +9,7 @@ class Customize {
   double radius = 8;
   String font = 'Poppins';
   Color basecolor = Color(0xFF633CA7);
+  Color secondary = Color(0xFF82DBDF);
   Color textcolor = Color(0xFF585858);
   Color background = Color.fromARGB(137, 224, 224, 224);
   double minfont= 14;

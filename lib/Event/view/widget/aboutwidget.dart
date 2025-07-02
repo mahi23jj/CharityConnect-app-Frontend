@@ -63,48 +63,7 @@ class Aboutwidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        // ListView(
-        //  scrollDirection: Axis.horizontal,
-        //  children:[
-        //    Container(
-        //       height: 200,
-        //       width: 200,
-        //       child: ClipRRect(
-        //         borderRadius: BorderRadiusGeometry.circular(10),
-        //         child: Image.asset('asset/images/project.jpg'),
-
-        //       ),
-        //     ),
-        //     Container(
-        //       height: 200,
-        //       width: 200,
-        //       child: ClipRRect(
-        //         borderRadius: BorderRadiusGeometry.circular(10),
-        //         child: Image.asset('asset/images/project.jpg'),
-
-        //       ),
-        //     ),
-        //     Container(
-        //       height: 200,
-        //       width: 200,
-        //       child: ClipRRect(
-        //         borderRadius: BorderRadiusGeometry.circular(10),
-        //         child: Image.asset('asset/images/project.jpg'),
-
-        //       ),
-        //     ),
-        //     Container(
-        //       height: 200,
-        //       width: 200,
-        //       child: ClipRRect(
-        //         borderRadius: BorderRadiusGeometry.circular(10),
-        //         child: Image.asset('asset/images/project.jpg'),
-
-        //       ),
-        //     ),
-        //  ]
-
-        // )
+       
       ],
     );
   }

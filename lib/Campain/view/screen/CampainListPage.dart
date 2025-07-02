@@ -100,75 +100,78 @@ class CampaignListPage extends StatelessWidget {
                 itemCount: campaigns.length,
                 itemBuilder: (context, index) {
                   final item = campaigns[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: Row(
-                      children: [
-                        // 📷 Image
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            item['image'],
-                            height: 80,
-                            width: 80,
-                            fit: BoxFit.cover,
+                  return GestureDetector(
+                    onTap: () => Navigator.pushNamed(context,'/Details',arguments: item),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        children: [
+                          // 📷 Image
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.network(
+                              item['image'],
+                              height: 80,
+                              width: 80,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-
-                        // 📄 Details
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(item['title'],
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15)),
-                              const SizedBox(height: 4),
-                              Text(item['author'],
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey.shade600)),
-                              const SizedBox(height: 8),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  LinearProgressIndicator(
-                                    value: item[
-                                        'progress'], // must be between 0.0 - 1.0
-                                    minHeight: 6,
-                                    backgroundColor: Colors.grey.shade300,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.green),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                      '${(item['progress'] * 100).toStringAsFixed(0)}% reached',
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.black)),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              // 💰 Amount and Time
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(item['amount'],
-                                      style: TextStyle(
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.bold)),
-                                  Text(item['daysLeft'],
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade600)),
-                                ],
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                          const SizedBox(width: 12),
+                    
+                          // 📄 Details
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(item['title'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
+                                const SizedBox(height: 4),
+                                Text(item['author'],
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey.shade600)),
+                                const SizedBox(height: 8),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    LinearProgressIndicator(
+                                      value: item[
+                                          'progress'], // must be between 0.0 - 1.0
+                                      minHeight: 6,
+                                      backgroundColor: Colors.grey.shade300,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.green),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                        '${(item['progress'] * 100).toStringAsFixed(0)}% reached',
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.black)),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                // 💰 Amount and Time
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(item['amount'],
+                                        style: TextStyle(
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold)),
+                                    Text(item['daysLeft'],
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey.shade600)),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },
