@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel/Campain/view/screen/Donationdetail.dart';
+import 'package:travel/Campain/view/widget/Donationlist.dart';
 
 class CampaignListPage extends StatelessWidget {
   final List<Map<String, dynamic>> categories = [
@@ -98,79 +99,13 @@ class CampaignListPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Donationdetail())),
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Row(
-                          children: [
-                            // 📷 Image
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.asset(
-                                item['image'],
-                                height: 80,
-                                width: 80,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-
-                            // 📄 Details
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(item['title'],
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15)),
-                                const SizedBox(height: 4),
-                                Text(item['author'],
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.black)),
-                                const SizedBox(height: 8),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      width: 100,
-                                      child: LinearProgressIndicator(
-                                        value: item[
-                                            'progress'], // must be between 0.0 - 1.0
-                                        minHeight: 6,
-                                        backgroundColor: Colors.grey.shade300,
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                Colors.green),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      '${(item['progress'] * 100).toStringAsFixed(0)}% reached',
-                                      style: const TextStyle(
-                                          fontSize: 12, color: Colors.black),
-                                    ),
-                                  ],
-                                ),
-
-                                const SizedBox(height: 8),
-                                // 💰 Amount and Time
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(item['amount'],
-                                        style: TextStyle(
-                                            color: Colors.green,
-                                            fontWeight: FontWeight.bold)),
-                                    Text(item['daysLeft'],
-                                        style: TextStyle(
-                                            fontSize: 12, color: Colors.black)),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                      child: Donationlist(
+                        title: item['title'],
+                        amount: item['amount'],
+                        image: item['image'],
+                        author: item['author'],
+                        date: item['date'],
+                        progress: item['progress'],
                       ),
                     );
                   },

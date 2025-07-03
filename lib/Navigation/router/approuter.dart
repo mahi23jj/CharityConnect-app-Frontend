@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:travel/Campain/view/screen/CampainListPage.dart';
 import 'package:travel/Campain/view/screen/Donationdetail.dart';
+import 'package:travel/Charity/view/Screen/Charitydetail.dart';
 import 'package:travel/Event/view/screen/upcoming_event.dart';
 import 'package:travel/Navigation/bottomnavigation/bottom_navigation.dart';
 
@@ -27,7 +28,7 @@ final approuter = GoRouter(initialLocation: '/home', routes: [
         StatefulShellBranch(routes: [
           GoRoute(
             path: '/search',
-            builder: (context, state) => const UpcomingEvent(),
+            builder: (context, state) => const Charitydetail(),
           )
         ]),
         StatefulShellBranch(routes: [

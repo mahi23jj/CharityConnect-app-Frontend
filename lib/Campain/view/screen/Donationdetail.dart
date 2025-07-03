@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel/base_Data/Widget/images.dart';
 import 'package:travel/base_Data/customize.dart';
 
 class Donationdetail extends StatefulWidget {
@@ -59,15 +60,11 @@ class _DonationdetailState extends State<Donationdetail> {
                       children: [
                         Text(
                           '125,000',
-                          style: TextStyle(
-                              fontSize: 16,
-                             
-                              color: app.secondary),
+                          style: TextStyle(fontSize: 16, color: app.secondary),
                         ),
                         Text(
                           ' fund collected from 500,000',
-                          style: TextStyle(
-                              fontSize: 16),
+                          style: TextStyle(fontSize: 16),
                         ),
                       ],
                     ),
@@ -76,7 +73,6 @@ class _DonationdetailState extends State<Donationdetail> {
                     ),
                     Row(children: [
                       CircleAvatar(
-                        
                         child: Image.asset(
                           'assets/images/1.png',
                           fit: BoxFit.cover,
@@ -142,16 +138,13 @@ class _DonationdetailState extends State<Donationdetail> {
                           4,
                           (index) {
                             return Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Container(
-                                height: 100,
-                                width: 100,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadiusGeometry.circular(20),
-                                  child: Image.asset('asset/images/project.jpg'),
-                                ),
-                              ),
-                            );
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Images(
+                                  image: 'asset/images/project.jpg',
+                                  height: 100,
+                                  radius: 20,
+                                  width: 100,
+                                ));
                           },
                         ),
                       ),
