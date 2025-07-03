@@ -13,6 +13,7 @@ class user_profile extends StatefulWidget {
 
 class _user_profileState extends State<user_profile> {
   final user = 'xyz';
+  final email = 'xyz@gmail.com';
   final donate = 0;
   final volunter = 0;
   int currentidx = 0;
@@ -30,38 +31,61 @@ class _user_profileState extends State<user_profile> {
       body: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const CircleAvatar(
                 backgroundColor: Colors.blueAccent,
                 radius: 40,
                 child: Icon(Icons.ac_unit_sharp),
               ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            user,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          SizedBox(
+            height: 3,
+          ),
+          Text(
+            email,
+            style: TextStyle(fontSize: 12),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
               Column(
                 children: [
-                  Text(
-                    user,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        children: [Text('Donation'), Text('${donate}')],
-                      ),
-                      Column(
-                        children: [Text('Voluneter'), Text('${volunter}')],
-                      )
-                    ],
-                  ),
-                  Divider(),
-                  ProfileTab(
-                      currentidx: context.read<Profileprovider>().state,
-                      onchange: (idx) =>
-                          context.read<Profileprovider>().ontap(idx))
+                  Text('${donate}'),
+                  Text('Donation'),
                 ],
+              ),
+              Column(
+                children: [
+                  Text('${volunter}'), 
+                Text('Voluneter')],
               )
             ],
           ),
+          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: ProfileTab(
+                currentidx: 0,
+                // context.read<Profileprovider>().state,
+                onchange: (idx) => () {}),
+          ),
+          Divider(
+            color: const Color.fromARGB(31, 49, 48, 48),
+          ),
+
+          // context.read<Profileprovider>().ontap(idx))
         ],
       ),
     );

@@ -9,27 +9,40 @@ class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        tab(Title: 'Donation', idx: 0),
-        tab(Title: 'Volunter', idx: 1)
+        tab(Title: Icons.monetization_on, idx: 0),
+        tab(Title: Icons.party_mode, idx: 1),
+        tab(Title: Icons.shopping_cart, idx: 2),
       ],
     );
   }
 
-  Widget tab({required String Title, required int idx}) {
+  Widget tab({required IconData Title, required int idx}) {
     final isactive = currentidx == idx;
     return GestureDetector(
-      onTap:()=> onchange(idx),
+      onTap: () {},
+      // onchange(idx),
       child: Container(
         alignment: Alignment.center,
         width: 100,
-        height: 40,
-        child: Text(
-          Title,
-          style: TextStyle(
+        child: Column(
+          children: [
+            Icon(
+              Title,
+              size: 20,
               color: isactive ? Colors.indigoAccent : Colors.black,
-              fontSize: isactive ? 25 : 18),
+            ),
+            if (isactive)
+              Container(
+                height: 3,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: Colors.indigoAccent,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+          ],
         ),
       ),
     );
