@@ -51,7 +51,7 @@ class _CharitydetailState extends State<Charitydetail> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                      ),
                 ),
                 const SizedBox(height: 20),
 
