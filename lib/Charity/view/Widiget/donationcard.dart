@@ -71,30 +71,30 @@ class Donationcard extends StatelessWidget {
           ),
         ),
       ),
-      Positioned(
-        top: 10,
-        right: 10,
-        bottom: 40,
-          child: Container(
-        height: 50,
-        width: 50,
-        decoration: BoxDecoration(
-            backgroundBlendMode: BlendMode.darken,
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.yellow.withOpacity(0.5)),
-        child: Row(
-          children: [
-            Icon(
-              Icons.star,
-              color: Colors.white,
-            ),
-            Text(
-              '4',
-              style: TextStyle(color: Colors.white, fontSize: 15),
-            ),
-          ],
-        ),
-      ))
+      // Positioned(
+      //   top: 10,
+      //   right: 10,
+      //   bottom: 40,
+      //     child: Container(
+      //   height: 50,
+      //   width: 50,
+      //   decoration: BoxDecoration(
+      //       backgroundBlendMode: BlendMode.darken,
+      //       borderRadius: BorderRadius.circular(50),
+      //       color: Colors.yellow.withOpacity(0.5)),
+      //   child: Row(
+      //     children: [
+      //       Icon(
+      //         Icons.star,
+      //         color: Colors.white,
+      //       ),
+      //       Text(
+      //         '4',
+      //         style: TextStyle(color: Colors.white, fontSize: 15),
+      //       ),
+      //     ],
+      //   ),
+      // ))
     ]);
   }
 }

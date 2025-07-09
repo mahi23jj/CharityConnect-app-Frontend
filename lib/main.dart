@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/Charity/Viewmodel/Bloc/charitybloc.dart';
 import 'package:travel/Homepage/viewmode/Bloc/homebloc.dart';
 import 'package:travel/Homepage/viewmode/Event/homeevent.dart';
 import 'package:travel/Homepage/viewmode/repository/home_repository.dart';
@@ -23,9 +24,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-              CommentProvider(content_repository())
-                ..add(Loadcontent()),
+              CommentProvider(content_repository())..add(Loadcontent()),
         ),
+        BlocProvider(create: (context) => CharityBloc()),
       ],
       child: MaterialApp.router(
         routerConfig: approuter,

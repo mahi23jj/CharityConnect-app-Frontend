@@ -17,29 +17,30 @@ class Eventcard extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Stack(
   children: [
-    Container(
-      height: 130,
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            spreadRadius: 2,
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
+    // Container(
+    //   // height: 130,
+    //   margin: const EdgeInsets.symmetric(vertical: , horizontal: 12),
+    //   decoration: BoxDecoration(
+      
+    //     borderRadius: BorderRadius.circular(16),
+    //     // boxShadow: [
+    //     //   BoxShadow(
+    //     //     color: Colors.black.withOpacity(0.05),
+    //     //     spreadRadius: 2,
+    //     //     blurRadius: 8,
+    //     //     offset: Offset(0, 4),
+    //     //   ),
+    //     // ],
+    //   ),
+      // child:
+       Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
+           ClipRRect(
+            borderRadius: BorderRadius.circular(12),
             child: Image.asset(
               image,
-              height: 110,
-              width: 110,
+              height: 80,
+              width: 80,
               fit: BoxFit.cover,
             ),
           ),
@@ -51,21 +52,24 @@ class Eventcard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    eventname,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
-                    ),
-                  ),
+                  // Text(
+                  //   ,
+                  //   style: TextStyle(
+                  //     fontSize: 15,
+                  //     fontWeight: FontWeight.w600,
+                  //     color: Colors.black87,
+                  //   ),
+                  // ),
+                  Text(eventname,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+              const SizedBox(height: 4),
                   Row(
                     children: [
                       Icon(Icons.location_on, color: Colors.grey[600], size: 18),
                       const SizedBox(width: 4),
                       Text(
                         eventlocation,
-                        style: TextStyle(color: Colors.grey[700], fontSize: 14),
+                        style: TextStyle(color: Colors.grey[700], fontSize: 12),
                       ),
                     ],
                   ),
@@ -75,7 +79,7 @@ class Eventcard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         eventdate,
-                        style: TextStyle(color: Colors.grey[700], fontSize: 14),
+                        style: TextStyle(color: Colors.grey[700], fontSize: 12),
                       ),
                     ],
                   ),
@@ -85,7 +89,7 @@ class Eventcard extends StatelessWidget {
           )
         ],
       ),
-    ),
+    
 
     // ⭐ Rating Badge
     Positioned(

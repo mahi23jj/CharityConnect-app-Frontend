@@ -98,13 +98,13 @@ class CampaignListPage extends StatelessWidget {
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Donationdetail())),
+                              builder: (context) => DonationDetail())),
                       child: Donationlist(
                         title: item['title'],
                         amount: item['amount'],
                         image: item['image'],
                         author: item['author'],
-                        date: item['date'],
+                        date: item['daysLeft'],
                         progress: item['progress'],
                       ),
                     );

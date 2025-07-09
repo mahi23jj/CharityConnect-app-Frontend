@@ -1,7 +1,9 @@
 //
 import 'package:flutter/material.dart';
 import 'package:travel/Charity/view/Widiget/Eventcard.dart';
+import 'package:travel/Charity/view/Widiget/charitytap.dart';
 import 'package:travel/Charity/view/Widiget/contact.dart';
+import 'package:travel/Charity/view/Widiget/donationcard.dart';
 import 'package:travel/Event/view/screen/event_detail.dart';
 import 'package:travel/base_Data/Widget/text.dart';
 import 'package:travel/base_Data/customize.dart';
@@ -20,6 +22,7 @@ class _CharitydetailState extends State<Charitydetail> {
   final email = 'Contact info';
   final donate = 120;
   final volunter = 8;
+  int currentidx = 0;
 
   // Row(
   void showSocialMediaDialog(BuildContext context) {
@@ -30,7 +33,6 @@ class _CharitydetailState extends State<Charitydetail> {
         return Dialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-        
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -49,15 +51,14 @@ class _CharitydetailState extends State<Charitydetail> {
                 const Text(
                   'Social Media',
                   style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      ),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 20),
 
                 // Social List
                 ...[
-        
                   buildSocialItem(icon: Icons.phone, title: "Phone Number"),
                   buildSocialItem(icon: Icons.facebook, title: "Facebook"),
                   buildSocialItem(icon: Icons.camera_alt, title: "Instagram"),
@@ -75,6 +76,51 @@ class _CharitydetailState extends State<Charitydetail> {
 
   @override
   Widget build(BuildContext context) {
+    Widget body;
+
+    if (currentidx == 0) {
+      body = Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Hosted Events",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Column(
+            children: List.generate(
+              4,
+              (index) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6.0),
+                child: GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EventDetail()),
+                  ),
+                  child: Eventcard(
+                    image: 'asset/images/project.jpg',
+                    eventname: 'Javascript Conference',
+                    eventdate: '2022-12-12',
+                    eventlocation: 'Jakarta',
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (currentidx == 1) {
+      body = Donationcard(
+        eventname: 'For building a house',
+        eventdate: '2022-12-12',
+        eventlocation: 'Addis Ababa',
+      );
+    } else {
+      body = const SizedBox(); // fallback or loading
+    }
     return Scaffold(
       // appBar: AppBar(
       //   backgroundColor: Colors.white,
@@ -152,42 +198,14 @@ class _CharitydetailState extends State<Charitydetail> {
 
             const SizedBox(height: 20),
 
+            // CircleAvatar(
+
+            //   child: Image.asset("assets/images/charity.png"),)
+
             // Tabs
-            ProfileTab(
-              currentidx: 0,
-              onchange: (idx) {},
-            ),
-
-            const Divider(color: Color.fromARGB(50, 0, 0, 0)),
-
-            const SizedBox(height: 10),
+            Charitytap(),
 
             // Event List
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Hosted Events",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-            ),
-            const SizedBox(height: 10),
-
-            Column(
-              children: List.generate(
-                4,
-                (index) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6.0),
-                  child: GestureDetector(
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => EventDetail())),
-                    child: Eventcard(
-                      image: 'asset/images/project.jpg',
-                      eventname: 'Javascript Conference',
-                      eventdate: '2022-12-12',
-                      eventlocation: 'Jakarta',
-                    ),
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       ),

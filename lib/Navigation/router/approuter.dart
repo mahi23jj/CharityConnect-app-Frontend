@@ -13,7 +13,7 @@ final approuter = GoRouter(initialLocation: '/home', routes: [
 
    GoRoute(
             path: '/DonationDetails',
-            builder: (context, state) => Donationdetail(),
+            builder: (context, state) => DonationDetail(),
           ),
   StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
