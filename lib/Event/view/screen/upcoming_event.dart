@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/Event/Model/Filter_model.dart';
+import 'package:travel/Event/Model/event_model.dart';
 import 'package:travel/Event/view/screen/event_detail.dart';
 import 'package:travel/Event/view/widget/Filterwidegt.dart';
 import 'package:travel/Event/view/widget/eventbar.dart';
 import 'package:travel/Event/view/widget/filter_bar.dart';
+import 'package:travel/Event/viewmodel/Bloc/eventBloc.dart';
+import 'package:travel/Event/viewmodel/Event/eventsevent.dart';
+import 'package:travel/Event/viewmodel/state/eventstate.dart';
 import 'package:travel/base_Data/customize.dart';
 
 class UpcomingEvent extends StatefulWidget {
@@ -48,7 +53,8 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                   children: [
                     Text(
                       'Filter',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -61,38 +67,9 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                 ),
 
                 LocationWidget(
-                            allConditions: filter.locations.keys.toList(),
-                            selectedCondition: 'Location',
-                            selectedConditions: filter.location),
-                // Row(
-                //   children: [
-                //     // expnaded not to cause overflow
-                //     Expanded(
-                //       // width: 100,
-                //       child: 
-                //     ),
-                //     // Expanded(
-                //     //   child: 
-                //     // ),
-                //     const SizedBox(
-                //       width: 10,
-                //     ),
-                //     Expanded(
-                //       // width: 100,
-                //       child: FilterWidget(
-                //             allConditions: filter.location.isNotEmpty
-                //                 ? filter.locations[filter.location.last] ?? []
-                //                 : [],
-                //             selectedCondition: 'subLocation',
-                //             selectedConditions: filter.subLocation),
-                //     ),
-                //     // Expanded(
-                //     //   child: 
-                //     // ),
-                //     //  FilterWidget(allConditions: filter.location.isNotEmpty? filter.locations[filter.location.last]:[], selectedCondition:'subLocation', selectedConditions: filter.subLocation),
-                //   ],
-                // ),
-
+                    allConditions: filter.locations.keys.toList(),
+                    selectedCondition: 'Location',
+                    selectedConditions: filter.location),
                 // const SizedBox(height: 20),
                 Text(
                   'Support For',
@@ -102,18 +79,6 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                     allConditions: filter.supportConditions,
                     selectedCondition: 'Support Conditions',
                     selectedConditions: filter.supportCondition),
-
-                Text(
-                  'Caused By',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                FilterWidget(
-                    allConditions: filter.cause,
-                    selectedCondition: 'Cause',
-                    selectedConditions: filter.causeTypes),
-
-                // Placeholder image
-
                 const SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -131,14 +96,22 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child:
-                          const Text("Cancel", style: TextStyle(color: Colors.white)),
+                      child: const Text("Cancel",
+                          style: TextStyle(color: Colors.white)),
                     ),
-                    SizedBox(width: 15,),
+                    SizedBox(
+                      width: 15,
+                    ),
                     ElevatedButton(
                       onPressed: () {
                         // Handle send action here
                         Navigator.pop(context);
+
+                        // Dispatch BLoC event to filter
+                        context.read<Eventbloc>().add(GetEvents(
+                              supportGroups:
+                                  filter.supportCondition, // from your widget
+                            ));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: app.basecolor,
@@ -148,8 +121,8 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child:
-                          const Text("Apply", style: TextStyle(color: Colors.white)),
+                      child: const Text("Apply",
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
@@ -265,21 +238,41 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                 ),
               ),
               Padding(padding: EdgeInsets.all(10)),
-              Column(
-                children: List.generate(
-                    4,
-                    (index) => Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => EventDetail())),
-                            child: Eventbar(
-                                image: 'asset/images/project.jpg',
-                                eventname: 'Javascript',
-                                eventdate: '2022-12-12',
-                                eventlocation: 'Jakarta'),
-                          ),
-                        )),
-              ),
+
+              BlocBuilder<Eventbloc, Eventstate>(
+                builder: (context, state) {
+                  if (state is Eventloading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state is Eventloaded) {
+                    return Column(
+                      children: List.generate(
+                          4,
+                          (index) => Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: GestureDetector(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => EventDetail())),
+                                  child: Eventbar(
+                                      image: state.upcamingevents[index].image,
+                                      eventname:
+                                          state.upcamingevents[index].eventname,
+                                      eventdate:
+                                          state.upcamingevents[index].eventdate,
+                                      eventlocation: state
+                                          .upcamingevents[index].eventlocation),
+                                ),
+                              )),
+                    );
+                  } else if (state is Eventerror) {
+                    return Text('error');
+                  }
+                  return const Center(
+                    child: Text('Nothing is loded'),
+                  );
+                },
+              )
             ],
           ),
         ));

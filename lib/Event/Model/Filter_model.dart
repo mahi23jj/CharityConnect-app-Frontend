@@ -1,7 +1,6 @@
 class Filter {
   List<String> location = [];
   List<String> supportCondition = [];
-  List<String> causeTypes = [];
   List<String> subLocation = [];
 
 // place in ethiopia and addis abeababa
@@ -58,21 +57,20 @@ class Filter {
   // 'Youth',
   // 'Homeless',
 
-  List<String> cause= [
-  'Mental Health',
-  'Domestic Violence',
-  'Drug & Alcohol',
-  'Poverty',
-  'Refugees & Immigrants',
-  'Disaster Relief'
+  // List<String> cause= [
+  // 'Mental Health',
+  // 'Domestic Violence',
+  // 'Drug & Alcohol',
+  // 'Poverty',
+  // 'Refugees & Immigrants',
+  // 'Disaster Relief'
 
-  ];
+  // ];
 
   Map<String, dynamic> toJson() {
     return {
       "location": location,
       "supportConditions": supportConditions,
-      "causeTypes": causeTypes,
       "subLocation": subLocation
     };
   }

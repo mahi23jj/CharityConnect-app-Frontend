@@ -6,7 +6,7 @@ import 'package:travel/Homepage/viewmode/repository/home_repository.dart';
 import 'package:travel/Homepage/viewmode/state/home_sate.dart';
 import 'package:travel/autentication/Login/logindata.dart';
 
-class CommentProvider extends Bloc<Conetntevent, Conetntstate> {
+class CommentProvider extends Bloc<Conetntevent, Conetntstate> {// 
   final content_repository contentrepo;
 
   CommentProvider(this.contentrepo) : super(Contentinital()) {
