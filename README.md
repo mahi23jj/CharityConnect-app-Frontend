@@ -22,27 +22,35 @@ I built Charity Connect to bridge that gap — allowing users to easily discover
 ## ✨ Features
 
 🎨 Modern & Responsive UI
+
 Built with Flutter to ensure a smooth, user-friendly experience across all devices.
 
 🔐 User Authentication
+
 Secure login and registration system — integrated with backend services.
 
 🏢 Verified Charity Profiles
+
 Dynamic profile pages with real-time data fetching from a verified organization database.
 
 🔔 Smart Notifications
+
 Real-time alerts for upcoming donation campaigns and charity events.
 
 📤 Social Sharing Integration
+
 Share events and campaigns directly via WhatsApp, Facebook, Telegram, and more.
 
 💳 Donation & Payment Integration
+
 Built-in payment system to support secure contributions.
 
 🔎 Advanced Search & Filtering
+
 Powerful search logic with filters (e.g., cause type, location, date) to improve user discovery.
 
 🔄 Platform Support
+
 Available on Android.
 
 ---
@@ -51,7 +59,7 @@ Available on Android.
 
 - [Flutter](https://flutter.dev/) (SDK version X.X.X)
 - [Dart](https://dart.dev/)
-- [Bloc](https://pub.dev/packages/provider) for state management
+- [Bloc](https://pub.dev/packages/bloc) for state management
 - REST API integration with [Node.js Backend](https://github.com/mahi23jj/CharityConnect-app-Backend)
 
 ---
