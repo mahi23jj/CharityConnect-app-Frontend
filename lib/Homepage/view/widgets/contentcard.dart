@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/Charity/view/Screen/Charitydetail.dart';
 import 'package:travel/Homepage/model/content.dart';
 import 'package:travel/Homepage/viewmode/Bloc/homebloc.dart';
 import 'package:travel/Homepage/viewmode/Event/homeevent.dart';
@@ -41,12 +42,21 @@ class _ContentCardState extends State<ContentCard> {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Text(
-                    widget.content.username,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: items.font,
-                      fontWeight: FontWeight.bold,
+                  TextButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Charitydetail(
+                            id: widget.content.id,
+                          ),
+                        )),
+                    child: Text(
+                      widget.content.username,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontFamily: items.font,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],

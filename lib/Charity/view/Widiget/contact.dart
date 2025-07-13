@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 
 class buildSocialItem extends StatelessWidget {
+  final String links;
   final IconData icon;
   final String title;
 
-  const buildSocialItem({super.key, required this.icon, required this.title});
+  const buildSocialItem({super.key, required this.icon, required this.title, required this.links});
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +17,21 @@ class buildSocialItem extends StatelessWidget {
         color: Colors.grey[900],
         borderRadius: BorderRadius.circular(50),
       ),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.white10,
-          child: Icon(icon, color: Colors.white),
-        ),
-        title: Text(title, style: const TextStyle(color: Colors.white)),
-        trailing: const Icon(Icons.more_vert, color: Colors.white54),
+      child: GestureDetector(
         onTap: () {
-          // TODO: handle tap actions like opening links or calling
+          
         },
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.white10,
+            child: Icon(icon, color: Colors.white),
+          ),
+          title: Text(title, style: const TextStyle(color: Colors.white)),
+          trailing: const Icon(Icons.more_vert, color: Colors.white54),
+          onTap: () {
+            // TODO: handle tap actions like opening links or calling
+          },
+        ),
       ),
     );
   }

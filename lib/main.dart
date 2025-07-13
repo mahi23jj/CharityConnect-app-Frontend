@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/Charity/Viewmodel/Bloc/charitybloc.dart';
+import 'package:travel/Charity/Viewmodel/repository/charityrepo.dart';
 import 'package:travel/Event/viewmodel/Bloc/eventBloc.dart';
 import 'package:travel/Event/viewmodel/Event/eventsevent.dart';
 import 'package:travel/Event/viewmodel/repository/Eventrepo.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               CommentProvider(content_repository())..add(Loadcontent()),
         ),
-        BlocProvider(create: (context) => CharityBloc()),
+        BlocProvider(create: (context) => CharityBloc(Charityrepo())),
         BlocProvider(
           create: (context) => Eventbloc(Eventrepo())..add(GetEvents()),
         ),

@@ -7,11 +7,13 @@ import 'package:travel/Charity/Viewmodel/Event/charityevent.dart';
 import 'package:travel/Charity/Viewmodel/state/charitystate.dart';
 import 'package:travel/Charity/view/Widiget/Eventcard.dart';
 import 'package:travel/Charity/view/Widiget/donationcard.dart';
+import 'package:travel/Event/Model/event_model.dart';
 import 'package:travel/Event/view/screen/event_detail.dart';
 import 'package:travel/base_Data/customize.dart';
 
 class Charitytap extends StatelessWidget {
-  Charitytap({super.key});
+  final List<Eventmodel> Events;
+  Charitytap({super.key, required this.Events});
 
   @override
   Widget build(BuildContext context) {
@@ -63,26 +65,27 @@ class Charitytap extends StatelessWidget {
               // ),
 
               Column(
-                children: List.generate(
-                  4,
-                  (index) => Padding(
+                children: List.generate(Events.length, (index) {
+                  final event = Events[index];
+
+                  return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 0.0),
                     child: GestureDetector(
                       onTap: () {},
-                      
+
                       //  Navigator.push(
                       //   context,
                       //   MaterialPageRoute(builder: (context) => EventDetail()),
                       // ),
                       child: Eventcard(
-                        image: 'asset/images/project.jpg',
-                        eventname: 'Javascript Conference',
-                        eventdate: '2022-12-12',
-                        eventlocation: 'Jakarta',
+                        image: event.image,
+                        eventname: event.eventname,
+                        eventdate: event.eventdate,
+                        eventlocation: event.eventlocation,
                       ),
                     ),
-                  ),
-                ),
+                  );
+                }),
               ),
             ],
           );
@@ -139,7 +142,7 @@ class Charitytap extends StatelessWidget {
     final isactive = currentidx == idx;
     return GestureDetector(
       onTap: () {
-    context.read<CharityBloc>().add(tap(idx));
+        context.read<CharityBloc>().add(tap(idx));
       },
       // onchange(idx),
       child: Container(
@@ -166,7 +169,4 @@ class Charitytap extends StatelessWidget {
       ),
     );
   }
-
-
-
 }

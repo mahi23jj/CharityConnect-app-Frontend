@@ -1,5 +1,6 @@
 //
 import 'package:flutter/material.dart';
+import 'package:travel/Charity/Viewmodel/repository/charityrepo.dart';
 import 'package:travel/Charity/view/Widiget/Eventcard.dart';
 import 'package:travel/Charity/view/Widiget/charitytap.dart';
 import 'package:travel/Charity/view/Widiget/contact.dart';
@@ -10,7 +11,8 @@ import 'package:travel/base_Data/customize.dart';
 import 'package:travel/userprofilepage/view/widget/profile_tab.dart';
 
 class Charitydetail extends StatefulWidget {
-  const Charitydetail({super.key});
+  String id;
+  Charitydetail({super.key, required this.id});
 
   @override
   State<Charitydetail> createState() => _CharitydetailState();
@@ -25,7 +27,14 @@ class _CharitydetailState extends State<Charitydetail> {
   int currentidx = 0;
 
   // Row(
-  void showSocialMediaDialog(BuildContext context) {
+  void showSocialMediaDialog(
+      BuildContext context,
+      String? Facebook,
+      String? Instagram,
+      String? Telegram,
+      String? Email,
+      String? Website,
+      String? Whatsapp) {
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -59,12 +68,30 @@ class _CharitydetailState extends State<Charitydetail> {
 
                 // Social List
                 ...[
-                  buildSocialItem(icon: Icons.phone, title: "Phone Number"),
-                  buildSocialItem(icon: Icons.facebook, title: "Facebook"),
-                  buildSocialItem(icon: Icons.camera_alt, title: "Instagram"),
-                  buildSocialItem(icon: Icons.music_note, title: "TikTok"),
-                  buildSocialItem(icon: Icons.telegram, title: "Telegram"),
-                  buildSocialItem(icon: Icons.email, title: "Email"),
+                  Website != null
+                      ? buildSocialItem(
+                          links: Website, icon: Icons.web, title: "Website")
+                      : Container(),
+                  Facebook != null
+                      ? buildSocialItem(
+                          links: '', icon: Icons.facebook, title: "Facebook")
+                      : Container(),
+                  Instagram != null
+                      ? buildSocialItem(
+                          links: '', icon: Icons.camera_alt, title: "Instagram")
+                      : Container(),
+                  Whatsapp != null
+                      ? buildSocialItem(
+                          links: '', icon: Icons.music_note, title: "whatsapp")
+                      : Container(),
+                  Telegram != null
+                      ? buildSocialItem(
+                          links: '', icon: Icons.telegram, title: "Telegram")
+                      : Container(),
+                  Email != null
+                      ? buildSocialItem(
+                          links: '', icon: Icons.email, title: "Email")
+                      : Container(),
                 ],
               ],
             ),
@@ -76,52 +103,6 @@ class _CharitydetailState extends State<Charitydetail> {
 
   @override
   Widget build(BuildContext context) {
-    Widget body;
-
-    if (currentidx == 0) {
-      body = Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Hosted Events",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Column(
-            children: List.generate(
-              4,
-              (index) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6.0),
-                child: GestureDetector(
-                  onTap: () {},
-                  //  Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => EventDetail()),
-                  // ),
-                  child: Eventcard(
-                    image: 'asset/images/project.jpg',
-                    eventname: 'Javascript Conference',
-                    eventdate: '2022-12-12',
-                    eventlocation: 'Jakarta',
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
-    } else if (currentidx == 1) {
-      body = Donationcard(
-        eventname: 'For building a house',
-        eventdate: '2022-12-12',
-        eventlocation: 'Addis Ababa',
-      );
-    } else {
-      body = const SizedBox(); // fallback or loading
-    }
     return Scaffold(
       // appBar: AppBar(
       //   backgroundColor: Colors.white,
@@ -130,86 +111,93 @@ class _CharitydetailState extends State<Charitydetail> {
 
       //   elevation: 1,
       // ),
-      body: SingleChildScrollView(
-        padding:
-            const EdgeInsets.only(top: 60, bottom: 10, left: 16, right: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Profile Picture
-            Center(
-              child: CircleAvatar(
-                backgroundColor: Colors.grey[200],
-                radius: 45,
-                child: Icon(Icons.volunteer_activism,
-                    color: app.basecolor, size: 40),
+      body: FutureBuilder(
+          future: Charityrepo().getcharitydetail(widget.id),
+          builder: (context, Snapshot) {
+            if (Snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (Snapshot.hasError) {
+              return Center(child: Text('Error: ${Snapshot.error}'));
+            }
+            final org = Snapshot.data!;
+            return SingleChildScrollView(
+              padding: const EdgeInsets.only(
+                  top: 60, bottom: 10, left: 16, right: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Profile Picture
+                  Center(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey[200],
+                      radius: 45,
+                      child: Icon(Icons.volunteer_activism,
+                          color: app.basecolor, size: 40),
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  // Organization Name
+                  Text(
+                    org.orgName,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
+                  const SizedBox(height: 6),
+                  GestureDetector(
+                      onTap: () => showSocialMediaDialog(
+                          context,
+                          org.orgFacebook,
+                          org.orgInstagram,
+                          org.orgWhatsapp,
+                          org.orgTelegram,
+                          org.websiteUrl,
+                          org.orgEmail),
+                      child: Text(email,
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 13, 92, 211)))),
+
+                  const SizedBox(height: 20),
+
+                  // Stats
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildStat("Followers", donate.toString()),
+                      _buildStat("Events", volunter.toString()),
+                    ],
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Buttons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _actionButton("Follow", app.basecolor),
+                      const SizedBox(width: 12),
+                      _actionButton("Report", Colors.red),
+                    ],
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  ExpandableText(
+                    text: org.orgDescription,
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  Charitytap(
+                    Events: org.events,
+                  ),
+
+                  // Event List
+                ],
               ),
-            ),
-
-            const SizedBox(height: 10),
-
-            // Organization Name
-            Text(
-              user,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-            ),
-            const SizedBox(height: 6),
-            GestureDetector(
-                onTap: () => showSocialMediaDialog(context),
-                child: Text(email,
-                    style: TextStyle(
-                        color: const Color.fromARGB(255, 13, 92, 211)))),
-
-            const SizedBox(height: 20),
-
-            // Stats
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildStat("Followers", donate.toString()),
-                _buildStat("Events", volunter.toString()),
-              ],
-            ),
-
-            const SizedBox(height: 20),
-
-            // Buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _actionButton("Follow", app.basecolor),
-                const SizedBox(width: 12),
-                _actionButton("Report", Colors.red),
-              ],
-            ),
-
-            const SizedBox(height: 20),
-
-            ExpandableText(
-              text:
-                  "Building trust and connection with your audience matters. Our organization aims to serve with transparency,impact, and compassion. Explore the events we've hosted below.Building trust and connection with your audience matters. Our organization aims to serve with transparency, impact, and compassion. Explore the events we've hosted below.impact, and compassion. Explore the events we've hosted below.",
-            ),
-
-            // About / Description
-            // Text(
-            //   "Building trust and connection with your audience matters. Our organization aims to serve with transparency, impact, and compassion. Explore the events we've hosted below.",
-            //   style: const TextStyle(fontSize: 15.5, height: 1.4),
-            //   textAlign: TextAlign.center,
-            // ),
-
-            const SizedBox(height: 20),
-
-            // CircleAvatar(
-
-            //   child: Image.asset("assets/images/charity.png"),)
-
-            // Tabs
-            Charitytap(),
-
-            // Event List
-          ],
-        ),
-      ),
+            );
+          }),
     );
   }
 

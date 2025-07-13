@@ -1,5 +1,6 @@
 import 'package:travel/Charity/Model/Bankaccount.dart';
 import 'package:travel/Charity/Model/address.dart';
+import 'package:travel/Event/Model/event_model.dart';
 
 class OrganizationProfile {
   final String orgName;
@@ -19,6 +20,7 @@ class OrganizationProfile {
   final String? orgFacebook;
   final String? orgInstagram;
   final String? orgWhatsapp;
+  final List<Eventmodel> events;
 
   OrganizationProfile({
     required this.orgName,
@@ -38,6 +40,7 @@ class OrganizationProfile {
     this.orgFacebook,
     this.orgInstagram,
     this.orgWhatsapp,
+    required this.events,
   });
 
   factory OrganizationProfile.fromJson(Map<String, dynamic> json) {
@@ -59,6 +62,8 @@ class OrganizationProfile {
           : null,
       address:
           (json['address'] as List).map((e) => Address.fromJson(e)).toList(),
+      events:
+          (json['events'] as List).map((e) => Eventmodel.fromMap(e)).toList(),
       websiteUrl: json['website_url'],
       orgTelegram: json['org_telegram'],
       orgFacebook: json['org_facebook'],
@@ -81,6 +86,7 @@ class OrganizationProfile {
       'created_at': createdAt.toIso8601String(),
       'certifications': certifications,
       'address': address.map((e) => e.toJson()).toList(),
+      'events': events.map((e) => e.toJson()).toList(),
       'website_url': websiteUrl,
       'org_telegram': orgTelegram,
       'org_facebook': orgFacebook,
