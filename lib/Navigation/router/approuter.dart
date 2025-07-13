@@ -28,7 +28,7 @@ final approuter = GoRouter(initialLocation: '/home', routes: [
         StatefulShellBranch(routes: [
           GoRoute(
             path: '/search',
-            builder: (context, state) => const Charitydetail(),
+            builder: (context, state) => const UpcomingEvent(),
           )
         ]),
         StatefulShellBranch(routes: [

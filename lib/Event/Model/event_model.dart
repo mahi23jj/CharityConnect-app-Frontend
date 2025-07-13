@@ -4,11 +4,13 @@ class Eventmodel {
   final String eventname;
   final String eventdate;
   final String eventlocation;
-  final String supportgroup;
+  final List<String> supportgroupMain;
+  final List<String> supportgroupSub;
   final String description;
-  final String cause;
+  final List<String> cause;
   final String organizer;
   final List<String>? Memories;
+  final List<String>? relatedpic;
   final double Vipseat;
   final double Normalseat;
   final double Vipseatprice;
@@ -20,29 +22,37 @@ class Eventmodel {
       required this.eventname,
       required this.eventdate,
       required this.eventlocation,
-      required this.supportgroup,
+      required this.supportgroupMain,
+      required this.supportgroupSub,
       required this.description,
       required this.cause,
       required this.organizer,
       this.Memories,
+      this.relatedpic,
       required this.Vipseat,
       required this.Normalseat,
       required this.Vipseatprice,
-      required this.Normalseatprice});
+      required this.Normalseatprice
+      });
 
   factory Eventmodel.fromMap(Map<String, dynamic> map) {
     return Eventmodel(
-      id: map['id'],
-      image: map['image'],
+      id: map['_id'],
+      image: map['image_url'],
       eventname: map['eventname'],
       eventdate: map['eventdate'],
       eventlocation: map['eventlocation'],
-      supportgroup: map['supportgroup'],
-      description: map['description'],
-      cause: map['cause'],
-      organizer: map['organizer'],
-      Memories: map['Memories'],
-      Vipseat: map['Vipseat'],
+      supportgroupMain: List<String>.from(map['supportgroup']['main'] ?? []),
+      supportgroupSub: List<String>.from(map['supportgroup']['sub'] ?? []),
+      description: map['discription'],
+      cause: List<String>.from(map['eventcause']),
+      organizer: map['creator_id']['org_name'],
+      Memories:
+          map['memories'] != null ? List<String>.from(map['memories']) : null,
+      relatedpic: map['relatedpic'] != null
+          ? List<String>.from(map['relatedpic'])
+          : null,
+      Vipseat: map['vipseat'],
       Normalseat: map['Normalseat'],
       Vipseatprice: map['Vipseatprice'],
       Normalseatprice: map['Normalseatprice'],
@@ -55,11 +65,16 @@ class Eventmodel {
         'eventname': eventname,
         'eventdate': eventdate,
         'eventlocation': eventlocation,
-        'supportgroup': supportgroup,
+        'supportgroup': {
+          'main': supportgroupMain,
+          'sub': supportgroupSub,
+        },
+        
         'description': description,
         'cause': cause,
         'organizer': organizer,
         'Memories': Memories,
+        'relatedpic': relatedpic,
         'Vipseat': Vipseat,
         'Normalseat': Normalseat,
         'Vipseatprice': Vipseatprice,

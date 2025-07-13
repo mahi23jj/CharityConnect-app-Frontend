@@ -96,10 +96,11 @@ class _CharitydetailState extends State<Charitydetail> {
               (index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => EventDetail()),
-                  ),
+                  onTap: () {},
+                  //  Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => EventDetail()),
+                  // ),
                   child: Eventcard(
                     image: 'asset/images/project.jpg',
                     eventname: 'Javascript Conference',

@@ -4,6 +4,7 @@ import 'package:travel/Event/Model/Filter_model.dart';
 import 'package:travel/Event/Model/event_model.dart';
 import 'package:travel/Event/view/screen/event_detail.dart';
 import 'package:travel/Event/view/widget/Filterwidegt.dart';
+import 'package:travel/Event/view/widget/catagorybutton.dart';
 import 'package:travel/Event/view/widget/eventbar.dart';
 import 'package:travel/Event/view/widget/filter_bar.dart';
 import 'package:travel/Event/viewmodel/Bloc/eventBloc.dart';
@@ -180,61 +181,31 @@ class _UpcomingEventState extends State<UpcomingEvent> {
               // Padding(padding: EdgeInsets.all(4)),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
-                child: Row(
-                  children: [
-                    // Icon container
-                    GestureDetector(
-                      onTap: () => showLongPopup(context),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300], // Light gray background
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Icon(Icons.tune,
-                            size: 20, color: Colors.black),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-
-                    // "Design" text container
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                          // color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(10),
-                          border: BoxBorder.all(color: app.basecolor)),
-                      child: const Text(
-                        'Women',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.black,
+                child: SizedBox(
+                  height: 50,
+                  child: Row(
+                    children: [
+                      // Icon container
+                      GestureDetector(
+                        onTap: () => showLongPopup(context),
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300], // Light gray background
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Icon(Icons.tune,
+                              size: 20, color: Colors.black),
                         ),
                       ),
-                    ),
-
-                    const SizedBox(width: 8),
-
-                    // "Design" text container
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                          // color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(10),
-                          border: BoxBorder.all(color: app.basecolor)),
-                      child: const Text(
-                        'Voluenter',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ],
+                      const SizedBox(width: 8),
+                      Catagorybutton(
+                        catagory: filter.catagory,
+                      )
+                  
+                      // "Design" text container
+                    ],
+                  ),
                 ),
               ),
               Padding(padding: EdgeInsets.all(10)),
@@ -246,14 +217,19 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                   } else if (state is Eventloaded) {
                     return Column(
                       children: List.generate(
-                          4,
+                            state.upcamingevents.length,
                           (index) => Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: GestureDetector(
-                                  onTap: () => Navigator.push(
+                                  onTap: () {
+
+                                    // context.read<Eventbloc>().add(GetEventsdetail(id: ));
+                                    
+                                  Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => EventDetail())),
+                                          builder: (context) => EventDetail(id: state.upcamingevents[index].id,)));
+                                  } ,
                                   child: Eventbar(
                                       image: state.upcamingevents[index].image,
                                       eventname:
@@ -266,7 +242,7 @@ class _UpcomingEventState extends State<UpcomingEvent> {
                               )),
                     );
                   } else if (state is Eventerror) {
-                    return Text('error');
+                    return Text(state.message);
                   }
                   return const Center(
                     child: Text('Nothing is loded'),

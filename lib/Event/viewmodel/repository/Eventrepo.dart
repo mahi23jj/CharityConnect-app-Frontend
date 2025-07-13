@@ -15,26 +15,39 @@ class Eventrepo {
       if (search != null && search.isNotEmpty) 'search': search,
       if (location != null && location.isNotEmpty) 'location': location,
       if (category != null && category.isNotEmpty) 'category': category,
-      if (supportGroups != null && supportGroups.isNotEmpty)
-        'supportgroup': supportGroups,
+       if (supportGroups != null && supportGroups.isNotEmpty)
+            'supportgroup': supportGroups.join(','),
     };
 
     try {
-      final response = await dio.get('https://localhost:5000/api/event/get',
+      final response = await dio.get('http://localhost:5000/api/events/get',
           queryParameters: query);
 
-      return response.data.map((e) => Eventmodel.fromMap(e)).toList();
+    
+           final List<dynamic> rawData = response.data;
+         
+
+      return rawData.map((e) => Eventmodel.fromMap(e)).toList();
     } catch (e) {
-      throw Exception('Failed to load event');
+      throw Exception('Failed to load event: ${e.toString()}');
     }
+  }
 
+  Future<Eventmodel> getEventbyId(String id) async {
+    final dio = Dio();
 
-
-    // if (response.statusCode == 200) {
-    //    List data = json.decode(response.body);
-    //   return data.map((e) => Eventmodel.fromMap(e)).toList();
-    // }else{
-
-    // }
+    try {
+      final response =
+          await dio.get('http://localhost:5000/api/events/get/$id');
+      if (response.statusCode == 200) {
+        final data = response.data;
+        print(data);
+        return Eventmodel.fromMap(data);
+      } else {
+        throw Exception('Failed to load event');
+      }
+    } catch (e) {
+      throw Exception('Error occurred: $e');
+    }
   }
 }

@@ -16,5 +16,17 @@ class Eventbloc extends Bloc<EventsEvent, Eventstate> {
         emit(Eventerror(e.toString()));
       }
     });
+
+    on<GetEventsdetail>((event, emit) async {
+        emit(Eventloading());
+        try {
+          final Eventsdetail = await eventrepo.getEventbyId(event.id);
+          emit(Eventsdetailstate(Eventsdetail));
+        } catch (e) {
+          emit(Eventerror(e.toString()));
+        }
+      // if (state is Eventloaded) {
+      // }
+    });
   }
 }

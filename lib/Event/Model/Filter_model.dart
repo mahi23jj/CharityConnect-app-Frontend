@@ -57,6 +57,20 @@ class Filter {
   // 'Youth',
   // 'Homeless',
 
+  List<String> catagory = [
+    'All',
+    'Women & Girls',
+    'Children',
+    'Youth',
+    'Elderly',
+    'Disabilities',
+    'Refugees & Migrants',
+    'Indigenous Communities',
+    'Veterans & Military Families',
+    'Minority Communities',
+    'Poverty',
+  ];
+
   // List<String> cause= [
   // 'Mental Health',
   // 'Domestic Violence',

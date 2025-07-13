@@ -15,3 +15,9 @@ class Eventloaded extends Eventstate {
   final List<Eventmodel> upcamingevents;
   Eventloaded(this.upcamingevents);
 }
+
+class Eventsdetailstate extends Eventstate {
+  final Eventmodel eventmodel;
+  Eventsdetailstate(this.eventmodel);
+  
+}

@@ -24,31 +24,31 @@ class Charitytap extends StatelessWidget {
         Widget body;
 
         final List<Map<String, dynamic>> campaigns = [
-    {
-      'image': 'asset/images/project.jpg',
-      'title': 'Urgent! Help the construction mosque',
-      'author': 'Adaa Bisaaa',
-      'amount': '\$23,423',
-      'daysLeft': '31 days left',
-      'progress': 0.6,
-    },
-    {
-      'image': 'asset/images/project.jpg',
-      'title': 'Elderly strokes work roughly paid 20 thousand',
-      'author': 'Prikilow',
-      'amount': '\$40,200',
-      'daysLeft': '20 days left',
-      'progress': 0.4,
-    },
-    {
-      'image': 'asset/images/project.jpg',
-      'title': "Help people who can't continue their education",
-      'author': 'Bissaa kuy',
-      'amount': '\$5,500',
-      'daysLeft': '15 days left',
-      'progress': 0.9,
-    },
-  ];
+          {
+            'image': 'asset/images/project.jpg',
+            'title': 'Urgent! Help the construction mosque',
+            'author': 'Adaa Bisaaa',
+            'amount': '\$23,423',
+            'daysLeft': '31 days left',
+            'progress': 0.6,
+          },
+          {
+            'image': 'asset/images/project.jpg',
+            'title': 'Elderly strokes work roughly paid 20 thousand',
+            'author': 'Prikilow',
+            'amount': '\$40,200',
+            'daysLeft': '20 days left',
+            'progress': 0.4,
+          },
+          {
+            'image': 'asset/images/project.jpg',
+            'title': "Help people who can't continue their education",
+            'author': 'Bissaa kuy',
+            'amount': '\$5,500',
+            'daysLeft': '15 days left',
+            'progress': 0.9,
+          },
+        ];
 
         if (currentidx == 0) {
           body = Column(
@@ -61,17 +61,19 @@ class Charitytap extends StatelessWidget {
               //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               //   ),
               // ),
-             
+
               Column(
                 children: List.generate(
                   4,
                   (index) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 0.0),
                     child: GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => EventDetail()),
-                      ),
+                      onTap: () {},
+                      
+                      //  Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => EventDetail()),
+                      // ),
                       child: Eventcard(
                         image: 'asset/images/project.jpg',
                         eventname: 'Javascript Conference',
@@ -85,31 +87,31 @@ class Charitytap extends StatelessWidget {
             ],
           );
         } else if (currentidx == 1) {
-          body =  Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: Column(
-                children: List.generate(
-                  campaigns.length,
-                  (index) {
-                    final item = campaigns[index];
-                    return GestureDetector(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DonationDetail())),
-                      child: Donationlist(
-                        title: item['title'],
-                        amount: item['amount'],
-                        image: item['image'],
-                        author: item['author'],
-                        date: item['daysLeft'],
-                        progress: item['progress'],
-                      ),
-                    );
-                  },
-                ),
+          body = Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: Column(
+              children: List.generate(
+                campaigns.length,
+                (index) {
+                  final item = campaigns[index];
+                  return GestureDetector(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DonationDetail())),
+                    child: Donationlist(
+                      title: item['title'],
+                      amount: item['amount'],
+                      image: item['image'],
+                      author: item['author'],
+                      date: item['daysLeft'],
+                      progress: item['progress'],
+                    ),
+                  );
+                },
               ),
-            );
+            ),
+          );
         } else {
           body = const SizedBox(); // fallback or loading
         }
@@ -137,7 +139,7 @@ class Charitytap extends StatelessWidget {
     final isactive = currentidx == idx;
     return GestureDetector(
       onTap: () {
-        context.read<CharityBloc>().add(tap(idx));
+    context.read<CharityBloc>().add(tap(idx));
       },
       // onchange(idx),
       child: Container(
@@ -164,4 +166,7 @@ class Charitytap extends StatelessWidget {
       ),
     );
   }
+
+
+
 }
